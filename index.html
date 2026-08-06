@@ -2,72 +2,89 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Фонд SCP — Внутренний Терминал</title>
+    <title>TERMINAL://SITE-19_MAINFRAME</title>
     <style>
-        body { background-color: #0b0c10; font-family: 'Courier New', monospace; padding: 30px; transition: all 0.5s ease; }
-        .terminal { border: 2px solid #66fcf1; padding: 25px; border-radius: 5px; max-width: 700px; margin: 0 auto; box-shadow: 0 0 15px rgba(102,252,241,0.2); }
-        .btn { background: transparent; border: 1px solid #66fcf1; padding: 10px 20px; font-family: monospace; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        body { background-color: #050505; font-family: 'Courier New', monospace; padding: 30px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .terminal { border: 2px solid #66fcf1; padding: 30px; border-radius: 4px; max-width: 800px; margin: 0 auto; box-shadow: 0 0 20px rgba(102,252,241,0.1); background-color: rgba(11, 12, 16, 0.95); }
+        .btn { background: transparent; border: 1px solid #66fcf1; padding: 12px 24px; font-family: monospace; cursor: pointer; margin-top: 20px; transition: 0.3s; text-transform: uppercase; font-weight: bold; }
+        .redacted { background-color: #555; color: #555; padding: 0 4px; }
+        .redacted:hover { color: #fff; background-color: transparent; } /* Пасхалка: при наведении текст видно */
         
-        /* Стили для Класса D (Тревожный) */
-        .status-d { color: #ff4444; border-color: #ff4444; box-shadow: 0 0 15px rgba(255,68,68,0.2); }
-        .btn-d { color: #ff4444; border-color: #ff4444; }
-        .btn-d:hover { background: #ff4444; color: #0b0c10; }
+        /* Стили для Класса D (Тревога / Нарушение) */
+        .status-d { color: #ff3333; border-color: #ff3333; box-shadow: 0 0 25px rgba(255,51,51,0.15); }
+        .btn-d { color: #ff3333; border-color: #ff3333; }
+        .btn-d:hover { background: #ff3333; color: #050505; box-shadow: 0 0 15px #ff3333; }
 
-        /* Стили для Уровня 0 (Обычный рабочий) */
-        .status-0 { color: #45f3ff; border-color: #45f3ff; }
-        .btn-0 { color: #45f3ff; border-color: #45f3ff; }
-        .btn-0:hover { background: #45f3ff; color: #0b0c10; }
+        /* Стили для Уровня 0 (Корпоративный / Хоз-блок) */
+        .status-0 { color: #33ccff; border-color: #33ccff; box-shadow: 0 0 25px rgba(51,204,255,0.15); }
+        .btn-0 { color: #33ccff; border-color: #33ccff; }
+        .btn-0:hover { background: #33ccff; color: #050505; box-shadow: 0 0 15px #33ccff; }
         
-        /* Стили для Уровня 1 (Младший исследователь) */
-        .status-1 { color: #00ff66; border-color: #00ff66; }
-        .btn-1 { color: #00ff66; border-color: #00ff66; }
-        .btn-1:hover { background: #00ff66; color: #0b0c10; }
+        /* Стили для Уровня 1 (Исследовательский сектор) */
+        .status-1 { color: #33ff33; border-color: #33ff33; box-shadow: 0 0 25px rgba(51,255,51,0.15); }
+        .btn-1 { color: #33ff33; border-color: #33ff33; }
+        .btn-1:hover { background: #33ff33; color: #050505; box-shadow: 0 0 15px #33ff33; }
 
         .hidden { display: none; }
-        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; }
+        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; opacity: 0.5; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
-<!-- БЛОК КЛАССА D -->
+<!-- ================= БЛОК КЛАССА D ================= -->
 <div id="block-d" class="terminal status-d hidden">
-    <h1>[ВНИМАНИЕ: СЕКТОР СТРОГОГО КОНТРОЛЯ]</h1>
-    <p>Вы идентифицированы как персонаж класса D (Расходный персонал).</p>
+    <h2>[ВНИМАНИЕ: СЕКТОР СОДЕРЖАНИЯ КЛАССА D]</h2>
+    <p><b>ОБЪЕКТ ИДЕНТИФИКАЦИИ:</b> Субъект D-9341</p>
+    <p><b>ТЕКУЩАЯ ДИСЛОКАЦИЯ:</b> Зона 19, Блок общего содержания Расходного Персонала.</p>
     <hr>
-    <p>Ваш статус: Ожидание тестирования объектов. Любые попытки покинуть сектор без конвоя караются ликвидацией.</p>
-    <p><i>Система: Обнаружена ошибка идентификации? Введите код амнистии для перевода в хоз-блок.</i></p>
-    <button class="btn btn-d" onclick="verifyCode('новичок', 'Level_0')">Ввести код амнистии</button>
+    <p>Вы заперты в камере. Из динамиков доносится хриплый голос доктора Клефа: <i>"Внимание всем сотрудникам класса D. Пройдите в шлюз камеры содержания SCP-173 для проведения ежедневного тестирования. Любое неповиновение приведёт к немедленной терминации сотрудниками СБ".</i></p>
+    <p>На полу возле вентиляции вы замечаете брошенный кем-то старый КПК охранника. Экран мерцает. Система запрашивает обходной служебный код для перевода вашей карточки в базу хоз-блока, подальше от камер содержания.</p>
+    <p><i>[Подсказка: Введите код "новичок"]</i></p>
+    <button class="btn btn-d" onclick="verifyCode('новичок', 'Level_0')">Взломать систему верификации</button>
 </div>
 
-<!-- БЛОК УРОВНЯ 0 -->
+<!-- ================= БЛОК УРОВНЯ 0 ================= -->
 <div id="block-0" class="terminal status-0 hidden">
-    <h1>[ИНТРАНЕТ ФОНДА: СЛУЖБА ОБЕСПЕЧЕНИЯ]</h1>
-    <p>Добро пожаловать, сотрудник технического отдела (Допуск: УРОВЕНЬ 0).</p>
+    <h2>[ВНУТРЕННЯЯ СЕТЬ ФОНДА SCP // ДОПУСК: УРОВЕНЬ 0]</h2>
+    <p><b>ПОЛЬЗОВАТЕЛЬ:</b> Старший техник хоз-части Зоны 19</p>
+    <p><b>СТАТУС:</b> Некомбатант (Запрещен доступ к объектам класса Евклид/Кетер)</p>
     <hr>
-    <h3>Текущие задачи на сегодня (Зона 19):</h3>
+    <h3>ВНУТРЕННИЕ ЛОГИ И ИНЦИДЕНТЫ:</h3>
     <ul>
-        <li>Уборка камер содержания Класса "Безопасный" (Сектор 4) — ВЫПОЛНЕНО.</li>
-        <li>Закупка чистящих средств против аномальной плесени — В ОЖИДАНИИ.</li>
-        <li>Замена перегоревших ламп в коридоре крыла сотрудников МОГ.</li>
+        <li><b>[Инцидент 096-А]:</b> В Секторе 5 зафиксирован прорыв. МОГ Эпсилон-11 ("Девятихвостая лиса") задействовала протоколы визуальной блокировки SCRANTON. Не смотрите на <span class="redacted" title="Наведи мышь">лицо объекта</span>. Ожидается санитарная зачистка.</li>
+        <li><b>[Приказ по базе]:</b> Технической службе завершить ремонт гермозатвора в крыле содержания <span class="redacted">Кетер</span> до конца смены. За неподчинение — перевод в Класс D.</li>
     </ul>
-    <p style="color: #aaaaaa;"><b>Записка от коллеги:</b> "Чувак, я оставил код верификации для лаборантов Уровня 1 на накладной. Лови ключ: <span style="color:#45f3ff; text-decoration: underline;">EUKLID_SHIELD</span>. Не потеряй!"</p>
+    
+    <div style="background: rgba(51,204,255,0.05); padding: 15px; border-left: 3px solid #33ccff; margin-top: 15px;">
+        <p><b>ПЕРЕХВАТ ПЕРЕПИСКИ (ОТДЕЛ СНАБЖЕНИЯ):</b><br>
+        <i>"Слушай, лаборанты из медицинского крыла совсем зажрались, требуют выдать им новые защитные костюмы. Я скинул им временный пропуск в архив исследований. Текст пропуска — простое русское слово <b style="color: #fff; text-shadow: 0 0 5px #33ccff;">трудяга</b>. Используй его, если нужно будет забрать документы по аномальной плесени в архиве".</i></p>
+    </div>
     <hr>
-    <button class="btn btn-0" onclick="verifyCode('трудяга', 'Level_1')">Запросить допуск в Лаборатории (Уровень 1)</button>
-    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить допуск</button>
+    <button class="btn btn-0" onclick="verifyCode('трудяга', 'Level_1')">Использовать перехваченный допуск в Архив (Уровень 1)</button>
+    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить прогресс аккаунта</button>
 </div>
 
-<!-- БЛОК УРОВНЯ 1 -->
+<!-- ================= БЛОК УРОВНЯ 1 ================= -->
 <div id="block-1" class="terminal status-1 hidden">
-    <h1>[АРХИВ ФОНДА SCP: СЕКТОР ИССЛЕДОВАНИЙ]</h1>
-    <p>Авторизация успешна. Допуск: УРОВЕНЬ 1 (Младший исследователь).</p>
+    <h2>[АРХИВНЫЙ МЕЙНФРЕЙМ // ДОПУСК: УРОВЕНЬ 1]</h2>
+    <p><b>АВТОРИЗАЦИЯ:</b> Младший научный сотрудник Сектора 4</p>
+    <p style="color: #ff3333; font-weight: bold;">[ВНИМАНИЕ: Распространение данных карается введением амнезиака класса А]</p>
     <hr>
-    <h3>ДОСТУПНЫЕ ДОКУМЕНТЫ:</h3>
-    <p><b>Объект №:</b> SCP-173</p>
+    
+    <h3>БАЗА ДАННЫХ: ОБЪЕКТ № SCP-173</h3>
     <p><b>Класс объекта:</b> Евклид</p>
-    <p><b>Особые условия содержания:</b> Объект должен содержаться в запертом контейнере. При потере визуального контакта немедленно атакует в область шеи...</p>
+    <p><b>Описание:</b> Скульптура из бетона и арматуры со следами аэрозольной краски марки Krylon. Объект крайне враждебен. Не может двигаться, пока находится в прямой видимости.</p>
+    <p><b>Протокол содержания:</b> При входе персонала в камеру, сотрудники обязаны вслух предупреждать друг друга перед тем, как моргнуть. <span class="redacted">Доктор Скрэнтон</span> погиб в ходе нарушения условий от <span class="redacted">1993 года</span>.</p>
+    
     <hr>
-    <p style="color: #66ff66;">*Доступ к объектам класса Кетер заблокирован. Требуется Уровень 2.*</p>
-    <button class="btn btn-1" onclick="resetProgress()">Выйти из системы</button>
+    <div style="background: rgba(51,255,51,0.05); padding: 15px; border: 1px dashed #33ff33;">
+        <p><b>СИСТЕМНОЕ УВЕДОМЛЕНИЕ:</b><br>
+        Обнаружена критическая аномалия в соседнем блоке! Объект <b>SCP-682</b> совершил очередную попытку побега. Допуск Уровня 1 заблокирован автоматикой Совета O5. Чтобы получить файлы по Кэтерам, вам потребуется код сотрудника службы безопасности (Уровень 2)...</p>
+    </div>
+    
+    <button class="btn btn-1" onclick="resetProgress()">Выйти из терминала</button>
 </div>
 
 <script>
@@ -85,24 +102,25 @@
 
         if (currentLevel === "Class_D") {
             document.getElementById('block-d').classList.remove('hidden');
-            document.body.style.backgroundColor = "#1a0505";
+            document.body.style.backgroundColor = "#120202";
         } else if (currentLevel === "Level_0") {
             document.getElementById('block-0').classList.remove('hidden');
-            document.body.style.backgroundColor = "#05131a";
+            document.body.style.backgroundColor = "#020b12";
         } else if (currentLevel === "Level_1") {
             document.getElementById('block-1').classList.remove('hidden');
-            document.body.style.backgroundColor = "#051a0b";
+            document.body.style.backgroundColor = "#021205";
         }
     }
 
     function verifyCode(correctCode, targetLevel) {
-        let userCode = prompt("Введите ключ авторизации:");
-        if (userCode === correctCode) {
+        let userCode = prompt("Введите ключ авторизации терминала:");
+        
+        if (userCode && userCode.toLowerCase() === correctCode.toLowerCase()) {
             localStorage.setItem("scp_secure_level", targetLevel);
-            alert("Доступ обновлен. Перенаправление...");
+            alert("ДОСТУП ПРЕДОСТАВЛЕН. Синхронизация данных...");
             checkAccess();
         } else {
-            alert("ОШИБКА: Неверный ключ. Доступ отклонен.");
+            alert("ОТКАЗ В ДОСТУПЕ. Неверная сигнатура ключа. Попытка зафиксирована СБ Зоны.");
         }
     }
 
