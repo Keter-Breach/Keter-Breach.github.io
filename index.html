@@ -35,7 +35,7 @@
     <p>Вы идентифицированы как персонаж класса D (Расходный персонал).</p>
     <hr>
     <p>Ваш статус: Ожидание тестирования объектов. Любые попытки покинуть сектор без конвоя караются ликвидацией.</p>
-    <p><i>Система: Обнаружена ошибка индентификации? Введите код амнистии для перевода в хоз-блок.</i></p>
+    <p><i>Система: Обнаружена ошибка идентификации? Введите код амнистии для перевода в хоз-блок.</i></p>
     <button class="btn btn-d" onclick="verifyCode('D_TO_ZERO', 'Level_0')">Ввести код амнистии</button>
 </div>
 
@@ -71,16 +71,13 @@
 </div>
 
 <script>
-    // Логика переключения экранов в зависимости от сохраненного уровня
     function checkAccess() {
-        // Прячем все блоки
         document.getElementById('block-d').classList.add('hidden');
         document.getElementById('block-0').classList.add('hidden');
         document.getElementById('block-1').classList.add('hidden');
 
         let currentLevel = localStorage.getItem("scp_secure_level");
         
-        // Если зашел впервые — он Класс D
         if (!currentLevel) {
             currentLevel = "Class_D";
             localStorage.setItem("scp_secure_level", "Class_D");
@@ -88,13 +85,13 @@
 
         if (currentLevel === "Class_D") {
             document.getElementById('block-d').classList.remove('hidden');
-            document.body.style.backgroundColor = "#1a0505"; // Темно-красный фон
+            document.body.style.backgroundColor = "#1a0505";
         } else if (currentLevel === "Level_0") {
             document.getElementById('block-0').classList.remove('hidden');
-            document.body.style.backgroundColor = "#05131a"; // Темно-синий фон
+            document.body.style.backgroundColor = "#05131a";
         } else if (currentLevel === "Level_1") {
             document.getElementById('block-1').classList.remove('hidden');
-            document.body.style.backgroundColor = "#051a0b"; // Темно-зеленый фон
+            document.body.style.backgroundColor = "#051a0b";
         }
     }
 
@@ -114,7 +111,6 @@
         checkAccess();
     }
 
-    // Запуск проверки при загрузке страницы
     checkAccess();
 </script>
 
