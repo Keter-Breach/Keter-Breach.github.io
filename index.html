@@ -1,110 +1,90 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>TERMINAL://SITE-19_SECURE_GRID</title>
+    <title>TERMINAL://SITE-19_MAINFRAME</title>
     <style>
-        body { background-color: #030303; font-family: 'Courier New', monospace; padding: 20px; transition: all 0.5s ease; }
-        .terminal { border: 2px solid #66fcf1; padding: 30px; border-radius: 4px; max-width: 850px; margin: 20px auto; background-color: rgba(10, 12, 16, 0.98); box-shadow: 0 0 30px rgba(102,252,241,0.05); }
-        .btn { background: transparent; border: 1px solid #66fcf1; padding: 12px 24px; font-family: monospace; cursor: pointer; margin-top: 20px; transition: 0.3s; text-transform: uppercase; font-weight: bold; font-size: 13px; }
-        .redacted { background-color: #444; color: #444; padding: 0 4px; cursor: help; }
-        .redacted:hover { color: #fff; background-color: transparent; }
-        .warning-flash { color: #ff3333; font-weight: bold; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        body { background-color: #050505; font-family: 'Courier New', monospace; padding: 30px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .terminal { border: 2px solid #66fcf1; padding: 30px; border-radius: 4px; max-width: 800px; margin: 0 auto; box-shadow: 0 0 20px rgba(102,252,241,0.1); background-color: rgba(11, 12, 16, 0.95); }
+        .btn { background: transparent; border: 1px solid #66fcf1; padding: 12px 24px; font-family: monospace; cursor: pointer; margin-top: 20px; transition: 0.3s; text-transform: uppercase; font-weight: bold; }
+        .redacted { background-color: #555; color: #555; padding: 0 4px; }
+        .redacted:hover { color: #fff; background-color: transparent; } /* Пасхалка: при наведении текст видно */
         
-        .status-d { color: #ff4444; border-color: #ff4444; } .btn-d { color: #ff4444; border-color: #ff4444; } .btn-d:hover { background: #ff4444; color: #030303; box-shadow: 0 0 15px #ff4444; }
-        .status-0 { color: #33ccff; border-color: #33ccff; } .btn-0 { color: #33ccff; border-color: #33ccff; } .btn-0:hover { background: #33ccff; color: #030303; box-shadow: 0 0 15px #33ccff; }
-        .status-1 { color: #33ff33; border-color: #33ff33; } .btn-1 { color: #33ff33; border-color: #33ff33; } .btn-1:hover { background: #33ff33; color: #030303; box-shadow: 0 0 15px #33ff33; }
-        .status-2 { color: #ffaa00; border-color: #ffaa00; } .btn-2 { color: #ffaa00; border-color: #ffaa00; } .btn-2:hover { background: #ffaa00; color: #030303; box-shadow: 0 0 15px #ffaa00; }
-        .status-3 { color: #ff00ff; border-color: #ff00ff; box-shadow: 0 0 35px rgba(255,0,255,0.2); } .btn-3 { color: #ff00ff; border-color: #ff00ff; } .btn-3:hover { background: #ff00ff; color: #030303; box-shadow: 0 0 15px #ff00ff; }
+        /* Стили для Класса D (Тревога / Нарушение) */
+        .status-d { color: #ff3333; border-color: #ff3333; box-shadow: 0 0 25px rgba(255,51,51,0.15); }
+        .btn-d { color: #ff3333; border-color: #ff3333; }
+        .btn-d:hover { background: #ff3333; color: #050505; box-shadow: 0 0 15px #ff3333; }
+
+        /* Стили для Уровня 0 (Корпоративный / Хоз-блок) */
+        .status-0 { color: #33ccff; border-color: #33ccff; box-shadow: 0 0 25px rgba(51,204,255,0.15); }
+        .btn-0 { color: #33ccff; border-color: #33ccff; }
+        .btn-0:hover { background: #33ccff; color: #050505; box-shadow: 0 0 15px #33ccff; }
+        
+        /* Стили для Уровня 1 (Исследовательский сектор) */
+        .status-1 { color: #33ff33; border-color: #33ff33; box-shadow: 0 0 25px rgba(51,255,51,0.15); }
+        .btn-1 { color: #33ff33; border-color: #33ff33; }
+        .btn-1:hover { background: #33ff33; color: #050505; box-shadow: 0 0 15px #33ff33; }
 
         .hidden { display: none; }
-        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; opacity: 0.4; }
-        ul { padding-left: 20px; } li { margin-bottom: 10px; line-height: 1.4; }
+        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; opacity: 0.5; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
 <!-- ================= БЛОК КЛАССА D ================= -->
 <div id="block-d" class="terminal status-d hidden">
-    <h2>[БЛОК ЗАДЕРЖАНИЯ D-CLASS // СЕКТОР ТЕСТИРОВАНИЯ]</h2>
-    <p><b>СУБЪЕКТ:</b> D-9341 (Разжалован за критическое нарушение протоколов секретности).</p>
-    <p><b>СИТУАЦИЯ:</b> Зона 19 содрогается от далеких взрывов. Дверь вашей камеры заклинило. На экране инженерного пульта горит защитный протокол СБ: <i>"Для разблокировки шлюзов сектора снабжения подтвердите базовые когнические функции сотрудника".</i></p>
+    <h2>[ВНИМАНИЕ: СЕКТОР СОДЕРЖАНИЯ КЛАССА D]</h2>
+    <p><b>ОБЪЕКТ ИДЕНТИФИКАЦИИ:</b> Субъект D-9341</p>
+    <p><b>ТЕКУЩАЯ ДИСЛОКАЦИЯ:</b> Зона 19, Блок общего содержания Расходного Персонала.</p>
     <hr>
-    <p class="warning-flash">ТЕСТ НА ЛОГИКУ ДЛЯ ВЫЖИВАНИЯ:</p>
-    <p>«В испытании SCP-173 участвовало 12 сотрудников класса D. Трое моргнули одновременно — их ликвидировали на месте. Двое попытались сбежать, и охрана устранила их в коридоре. Еще четверо успешно очистили камеру содержания и были возвращены в блок. Сколько выживших сотрудников класса D осталось заперто в тестовой камере?»</p>
-    <p><i>[Подсказка: Посчитайте внимательно тех, кто остался в живых внутри камеры, и введите число]</i></p>
-    <button class="btn btn-d" onclick="quizLevel0()">Ввести ответ и открыть шлюз</button>
+    <p>Вы заперты в камере. Из динамиков доносится хриплый голос доктора Клефа: <i>"Внимание всем сотрудникам класса D. Пройдите в шлюз камеры содержания SCP-173 для проведения ежедневного тестирования. Любое неповиновение приведёт к немедленной терминации сотрудниками СБ".</i></p>
+    <p>На полу возле вентиляции вы замечаете брошенный кем-то старый КПК охранника. Экран мерцает. Система запрашивает обходной служебный код для перевода вашей карточки в базу хоз-блока, подальше от камер содержания.</p>
+    <p><i>[Подсказка: Введите код "новичок"]</i></p>
+    <button class="btn btn-d" onclick="verifyCode('новичок', 'Level_0')">Взломать систему верификации</button>
 </div>
 
 <!-- ================= БЛОК УРОВНЯ 0 ================= -->
 <div id="block-0" class="terminal status-0 hidden">
-    <h2>[СЕТЬ ТЕХНИЧЕСКОГО ОБЕСПЕЧЕНИЯ // ДОПУСК: УРОВЕНЬ 0]</h2>
-    <p><b>АВТОРИЗАЦИЯ:</b> Автоматический дежурный terminal хоз-блока.</p>
+    <h2>[ВНУТРЕННЯЯ СЕТЬ ФОНДА SCP // ДОПУСК: УРОВЕНЬ 0]</h2>
+    <p><b>ПОЛЬЗОВАТЕЛЬ:</b> Старший техник хоз-части Зоны 19</p>
+    <p><b>СТАТУС:</b> Некомбатант (Запрещен доступ к объектам класса Евклид/Кетер)</p>
     <hr>
-    <h3>ЖУРНАЛ ЗАПИСЕЙ И ОТЧЕТОВ ПО ЗОНЕ 19:</h3>
+    <h3>ВНУТРЕННИЕ ЛОГИ И ИНЦИДЕНТЫ:</h3>
     <ul>
-        <li><b>Отчет об инциденте:</b> Доктор <span class="redacted">Андрей Клеф</span> запросил экстренную доставку 500 литров латексного раствора в крыло содержания <b>SCP-049</b>. Доктор утверждает, что аномальный субъект («Чумной доктор») стал проявлять чрезмерную агрессию и кричать о некой "Поветрии", которая поразила персонал.</li>
-        <li><b>Секретная записка электрика:</b> <i>"Парни, я случайно узнал, как ученые кодируют свои архивы младшего персонала. Они берут название главного хобби Чумного доктора на латыни. Слово из 7 букв. Вроде пишется как <b style="color: #fff; text-shadow: 0 0 5px #33ccff;">medicus</b>. Введите его в терминал архива, чтобы открыть папки исследований".</i></li>
+        <li><b>[Инцидент 096-А]:</b> В Секторе 5 зафиксирован прорыв. МОГ Эпсилон-11 ("Девятихвостая лиса") задействовала протоколы визуальной блокировки SCRANTON. Не смотрите на <span class="redacted" title="Наведи мышь">лицо объекта</span>. Ожидается санитарная зачистка.</li>
+        <li><b>[Приказ по базе]:</b> Технической службе завершить ремонт гермозатвора в крыле содержания <span class="redacted">Кетер</span> до конца смены. За неподчинение — перевод в Класс D.</li>
     </ul>
+    
+    <div style="background: rgba(51,204,255,0.05); padding: 15px; border-left: 3px solid #33ccff; margin-top: 15px;">
+        <p><b>ПЕРЕХВАТ ПЕРЕПИСКИ (ОТДЕЛ СНАБЖЕНИЯ):</b><br>
+        <i>"Слушай, лаборанты из медицинского крыла совсем зажрались, требуют выдать им новые защитные костюмы. Я скинул им временный пропуск в архив исследований. Текст пропуска — простое русское слово <b style="color: #fff; text-shadow: 0 0 5px #33ccff;">трудяга</b>. Используй его, если нужно будет забрать документы по аномальной плесени в архиве".</i></p>
+    </div>
     <hr>
-    <button class="btn btn-0" onclick="verifyCode('medicus', 'Level_1')">Авторизоваться в Архиве Исследований</button>
-    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить терминал</button>
+    <button class="btn btn-0" onclick="verifyCode('трудяга', 'Level_1')">Использовать перехваченный допуск в Архив (Уровень 1)</button>
+    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить прогресс аккаунта</button>
 </div>
 
 <!-- ================= БЛОК УРОВНЯ 1 ================= -->
 <div id="block-1" class="terminal status-1 hidden">
-    <h2>[АРХИВ МЛАДШИХ ИССЛЕДОВАТЕЛЕЙ // ДОПУСК: УРОВЕНЬ 1]</h2>
-    <p><b>СЕКТОР:</b> Медико-биологическое крыло сдерживания.</p>
+    <h2>[АРХИВНЫЙ МЕЙНФРЕЙМ // ДОПУСК: УРОВЕНЬ 1]</h2>
+    <p><b>АВТОРИЗАЦИЯ:</b> Младший научный сотрудник Сектора 4</p>
+    <p style="color: #ff3333; font-weight: bold;">[ВНИМАНИЕ: Распространение данных карается введением амнезиака класса А]</p>
     <hr>
-    <h3>ОБЪЕКТ: SCP-049 («Чумной доктор»)</h3>
-    <p><b>Класс:</b> Евклид. Представляет собой гуманоидное существо ростом около 1.9 м в одежде средневекового чумного доктора. Способен мгновенно умерщвлять людей прикосновением руки, после чего проводит грубые хирургические операции, превращая трупы в зомби (SCP-049-2).</p>
     
-    <h3>ОБЪЕКТ: SCP-173 («Скульптура»)</h3>
-    <p><b>Класс:</b> Евклид. Изготовлен из бетона и арматуры. Присутствует постоянная угроза удушения или перелома основания черепа персонала. Движение начинается только в моменты отсутствия прямого визуального контакта.</p>
-    <hr>
-    <p class="warning-flash">ВНИМАНИЕ! КРИТИЧЕСКАЯ УГРОЗА В СОСЕДНЕМ СЕКТОРЕ:</p>
-    <p>Зафиксировано нарушение условий содержания <b>SCP-096 («Скромник»)</b>. Он вырвался из стального куба. Какой протокол действий вы обязаны применить как сотрудник Фонда, чтобы выжить при встрече с ним в коридоре?</p>
+    <h3>БАЗА ДАННЫХ: ОБЪЕКТ № SCP-173</h3>
+    <p><b>Класс объекта:</b> Евклид</p>
+    <p><b>Описание:</b> Скульптура из бетона и арматуры со следами аэрозольной краски марки Krylon. Объект крайне враждебен. Не может двигаться, пока находится в прямой видимости.</p>
+    <p><b>Протокол содержания:</b> При входе персонала в камеру, сотрудники обязаны вслух предупреждать друг друга перед тем, как моргнуть. <span class="redacted">Доктор Скрэнтон</span> погиб в ходе нарушения условий от <span class="redacted">1993 года</span>.</p>
     
-    <button class="btn btn-1" onclick="quizLevel2('бежать')">А: Бежать в противоположную сторону</button>
-    <button class="btn btn-1" style="margin-left: 10px;" onclick="quizLevel2('смотреть')">Б: Пристально смотреть ему в глаза</button>
-    <button class="btn btn-1" style="margin-left: 10px;" onclick="quizLevel2('закрыть глаза')">В: Закрыть глаза и не смотреть на лицо</button>
-</div>
-
-<!-- ================= БЛОК УРОВНЯ 2 ================= -->
-<div id="block-2" class="terminal status-2 hidden">
-    <h2>[ЦЕНТРАЛЬНЫЙ СЕРВЕР УПРАВЛЕНИЯ ЗОНЫ // ДОПУСК: УРОВЕНЬ 2]</h2>
-    <p><b>СТАТУС:</b> Старший научный сотрудник / Командир группы сдерживания.</p>
     <hr>
-    <h3>ОБЪЕКТ: SCP-096 («Скромник»)</h3>
-    <p><b>Класс:</b> Евклид. Как только кто-то видит его лицо, субъект впадает в состояние неописуемой ярости. Он начинает бежать к человеку со скоростью до <span class="redacted">███ км/ч</span>, преодолевая любые препятствия, и неизбежно уничтожает его. Способов остановить разъяренного SCP-096 не существует.</p>
-
-    <h3>ОБЪЕКТ: SCP-682 («Неуязвимая рептилия»)</h3>
-    <p><b>Класс: КЕТЕР.</b> Крупное существо, обладающее абсолютной регенерацией. Способен выжить, даже если уничтожено 99% его тела. Ненавидит всю органическую жизнь. Фонд предпринимал десятки попыток уничтожения (включая погружение в кислоту и воздействие лазеров), но объект адаптируется ко всему.</p>
-    <hr>
-    <p style="color: #ffaa00; font-weight: bold;">[СООБЩЕНИЕ ОТ СОВЕТА О5]:</p>
-    <p>Вы зашли слишком далеко для обычного выжившего. Дальнейшие файлы заблокированы квантовым шифром Совета О5. Истинные тайны Фонда откроются только тому, кто знает главный девиз всей организации на русском языке...</p>
+    <div style="background: rgba(51,255,51,0.05); padding: 15px; border: 1px dashed #33ff33;">
+        <p><b>СИСТЕМНОЕ УВЕДОМЛЕНИЕ:</b><br>
+        Обнаружена критическая аномалия в соседнем блоке! Объект <b>SCP-682</b> совершил очередную попытку побега. Допуск Уровня 1 заблокирован автоматикой Совета O5. Чтобы получить файлы по Кэтерам, вам потребуется код сотрудника службы безопасности (Уровень 2)...</p>
+    </div>
     
-    <button class="btn btn-2" onclick="verifyCode('обезопасить удержать сохранить', 'Level_3')">Ввести девиз Фонда (Уровень 3)</button>
-    <button class="btn btn-2" style="margin-left: 10px;" onclick="resetProgress()">Выйти</button>
-</div>
-
-<!-- ================= БЛОК УРОВНЯ 3 ================= -->
-<div id="block-3" class="terminal status-3 hidden">
-    <h2>[СЕКРЕТНЫЙ ЯДЕРНЫЙ ТЕРМИНАЛ // СОВЕТ О5 — ВЫСШИЙ ДОПУСК]</h2>
-    <p><b>ПОЛЬЗОВАТЕЛЬ:</b> O5-1 (Смотритель)</p>
-    <p class="warning-flash">[ДОСТУП К ТАЙНАМ СОВЕТА: РАЗРЕШЕН]</p>
-    <hr>
-    <p>Вы получили доступ к главному терминалу управления Зоны 19. Отсюда вы можете запустить протокол Альфа-боеголовок для полной очистки комплекса.</p>
-    
-    <h3>МЕМОРАНДУМ О5: ИСТИННАЯ СУТЬ ФОНДА</h3>
-    <p>Мы не просто сдерживаем монстров. Мы строим тюрьму для самой реальности. Объекты вроде <b>SCP-682</b> — это не случайные мутации. Это фундаментальные законы вселенной, которые пытаются стереть человечество. Если мы проиграем, мир рухнет за секунды.</p>
-    
-    <p><b>Текущий статус Зоны 19:</b> <span style="color: #ff00ff;">Критическое нарушение сдерживания локализовано. Выживание обеспечено.</span></p>
-    <hr>
-    <button class="btn btn-3" onclick="alert('ПРОТОКОЛ АЛЬФА-БОЕГОЛОВОК АКТИВИРОВАН. ЭВАКУАЦИЯ: 90 СЕКУНД.')">Активировать Альфа-боеголовки</button>
-    <button class="btn btn-3" style="margin-left: 10px;" onclick="resetProgress()">Перезагрузить симуляцию (В класс D)</button>
+    <button class="btn btn-1" onclick="resetProgress()">Выйти из терминала</button>
 </div>
 
 <script>
@@ -112,8 +92,6 @@
         document.getElementById('block-d').classList.add('hidden');
         document.getElementById('block-0').classList.add('hidden');
         document.getElementById('block-1').classList.add('hidden');
-        document.getElementById('block-2').classList.add('hidden');
-        document.getElementById('block-3').classList.add('hidden');
 
         let currentLevel = localStorage.getItem("scp_secure_level");
         
@@ -124,43 +102,35 @@
 
         if (currentLevel === "Class_D") {
             document.getElementById('block-d').classList.remove('hidden');
-            document.body.style.backgroundColor = "#150202";
+            document.body.style.backgroundColor = "#120202";
         } else if (currentLevel === "Level_0") {
             document.getElementById('block-0').classList.remove('hidden');
-            document.body.style.backgroundColor = "#020c15";
+            document.body.style.backgroundColor = "#020b12";
         } else if (currentLevel === "Level_1") {
             document.getElementById('block-1').classList.remove('hidden');
-            document.body.style.backgroundColor = "#021506";
-        } else if (currentLevel === "Level_2") {
-            document.getElementById('block-2').classList.remove('hidden');
-            document.body.style.backgroundColor = "#1c1301";
-        } else if (currentLevel === "Level_3") {
-            document.getElementById('block-3').classList.remove('hidden');
-            document.body.style.backgroundColor = "#18011c";}
-    function quizLevel0() {
-        let answer = prompt("Сколько выживших сотрудников класса D осталось внутри камеры?");
+            document.body.style.backgroundColor = "#021205";
+        }
+    }
+
+    function verifyCode(correctCode, targetLevel) {
+        let userCode = prompt("Введите ключ авторизации терминала:");
         
-        if (answer === "3") {
-            localStorage.setItem("scp_secure_level", "Level_0");
-            alert("СТАТУС ИЗМЕНЕН: Вы переведены в Хоз-блок. Дверь открыта.");
+        if (userCode && userCode.toLowerCase() === correctCode.toLowerCase()) {
+            localStorage.setItem("scp_secure_level", targetLevel);
+            alert("ДОСТУП ПРЕДОСТАВЛЕН. Синхронизация данных...");
             checkAccess();
-        } else {alert("НЕВЕРНО. Защитные турели активированы. Вы ликвидированы.");
-                resetProgress();
-   function quizLevel2(choice) 
-       
-        if (choice === 'закрыть глаза') {
-            localStorage.setItem("scp_secure_level", "Level_2");
-            alert("ВЫ СВЕРНУЛИ ЗА УГОЛ И ЗАКРЫЛИ ГЛАЗА. SCP-096 пробежал мимо, разрывая на части охрану. Допуск повышен.");
-            checkAccess();
-        } else {alert("ВЫ ПОСМОТРЕЛИ НА НЕГО ИЛИ ПОПЫТАЛИСЬ УБЕЖАТЬ. SCP-096 разорвал вас на части через 4.2 секунды.");
-            resetProgress();
-    function verifyCode(correctCode, targetLevel) 
-        let userCode = prompt("Введите секретный ключ терминала:");
-                
-       if (userCode && userCode.toLowerCase().trim() === correctCode.toLowerCase().trim()) {
-           localStorage.setItem("scp_secure_level", targetLevel);
-           alert("ДОСТУП ОБНОВЛЕН. Загрузка засекреченных протоколов...");
-           checkAccess();
-       } else {alert("КРИТИЧЕСКАЯ ОШИБКА ДОСТУПА. Попытка взлома отправлена в СБ Зоны 19.");}
-    }function resetProgress() {localStorage.setItem("scp_secure_level", "Class_D");
-          checkAccess();
+        } else {
+            alert("ОТКАЗ В ДОСТУПЕ. Неверная сигнатура ключа. Попытка зафиксирована СБ Зоны.");
+        }
+    }
+
+    function resetProgress() {
+        localStorage.setItem("scp_secure_level", "Class_D");
+        checkAccess();
+    }
+
+    checkAccess();
+</script>
+
+</body>
+</html>
