@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Terminal-SCP: Node-04</title>
+    <style>
+        body { background-color: #0d0d0d; color: #00ff66; font-family: 'Courier New', monospace; padding: 30px; }
+        .terminal { border: 2px solid #00ff66; padding: 25px; border-radius: 5px; max-width: 600px; box-shadow: 0 0 15px rgba(0,255,102,0.2); }
+        .btn { background: transparent; color: #00ff66; border: 1px solid #00ff66; padding: 10px 20px; font-family: monospace; cursor: pointer; margin-top: 15px; }
+        .btn:hover { background: #00ff66; color: #0d0d0d; }
+    </style>
+</head>
+<body>
+
+<div class="terminal">
+    <h1>[ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ СВЯЗИ]</h1>
+    <p>Добро пожаловать в архивный узел Фонда SCP.</p>
+    <hr style="border-color: #00ff66;">
+    
+    <h3 id="access-level">ТЕКУЩИЙ СТАТУС: КЛАСС D (Расходный персонал)</h3>
+    <p id="content-text">Доступ к архивам заблокирован. Выполняйте приказы сотрудников службы безопасности.</p>
+    
+    <button class="btn" onclick="upgradeAccess()">Запросить повышение допуска</button>
+</div>
+
+<script>
+    // Проверяем, заходил ли пользователь раньше и какой у него уровень
+    if(localStorage.getItem("scp_level") === "Level_1") {
+        document.getElementById("access-level").innerText = "ТЕКУЩИЙ СТАТУС: УРОВЕНЬ 1 (Младший сотрудник)";
+        document.getElementById("content-text").innerText = "ДОСТУП РАЗРЕШЕН: Объект SCP-173 — Класс: Евклид. Статуэтка из бетона и арматуры. Начинает движение, когда пропадает из поля зрения...";
+    }
+
+    function upgradeAccess() {
+        let code = prompt("Введите секретный код верификации для Уровня 1:");
+        if (code === "KETER_2026") {
+            localStorage.setItem("scp_level", "Level_1");
+            alert("Личность подтверждена. Допуск повышен до Уровня 1.");
+            location.reload();
+        } else {
+            alert("ОТКАЗ В ДОСТУПЕ. Неверный код. Вы остаетесь Классом D.");
+        }
+    }
+</script>
+
+</body>
+</html>
