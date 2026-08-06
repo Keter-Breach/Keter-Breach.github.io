@@ -2,44 +2,120 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Terminal-SCP: Node-04</title>
+    <title>Фонд SCP — Внутренний Терминал</title>
     <style>
-        body { background-color: #0d0d0d; color: #00ff66; font-family: 'Courier New', monospace; padding: 30px; }
-        .terminal { border: 2px solid #00ff66; padding: 25px; border-radius: 5px; max-width: 600px; box-shadow: 0 0 15px rgba(0,255,102,0.2); }
-        .btn { background: transparent; color: #00ff66; border: 1px solid #00ff66; padding: 10px 20px; font-family: monospace; cursor: pointer; margin-top: 15px; }
-        .btn:hover { background: #00ff66; color: #0d0d0d; }
+        body { background-color: #0b0c10; font-family: 'Courier New', monospace; padding: 30px; transition: all 0.5s ease; }
+        .terminal { border: 2px solid #66fcf1; padding: 25px; border-radius: 5px; max-width: 700px; margin: 0 auto; box-shadow: 0 0 15px rgba(102,252,241,0.2); }
+        .btn { background: transparent; border: 1px solid #66fcf1; padding: 10px 20px; font-family: monospace; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        
+        /* Стили для Класса D (Тревожный) */
+        .status-d { color: #ff4444; border-color: #ff4444; box-shadow: 0 0 15px rgba(255,68,68,0.2); }
+        .btn-d { color: #ff4444; border-color: #ff4444; }
+        .btn-d:hover { background: #ff4444; color: #0b0c10; }
+
+        /* Стили для Уровня 0 (Обычный рабочий) */
+        .status-0 { color: #45f3ff; border-color: #45f3ff; }
+        .btn-0 { color: #45f3ff; border-color: #45f3ff; }
+        .btn-0:hover { background: #45f3ff; color: #0b0c10; }
+        
+        /* Стили для Уровня 1 (Младший исследователь) */
+        .status-1 { color: #00ff66; border-color: #00ff66; }
+        .btn-1 { color: #00ff66; border-color: #00ff66; }
+        .btn-1:hover { background: #00ff66; color: #0b0c10; }
+
+        .hidden { display: none; }
+        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; }
     </style>
 </head>
 <body>
 
-<div class="terminal">
-    <h1>[ЦЕНТРАЛЬНЫЙ ТЕРМИНАЛ СВЯЗИ]</h1>
-    <p>Добро пожаловать в архивный узел Фонда SCP.</p>
-    <hr style="border-color: #00ff66;">
-    
-    <h3 id="access-level">ТЕКУЩИЙ СТАТУС: КЛАСС D (Расходный персонал)</h3>
-    <p id="content-text">Доступ к архивам заблокирован. Выполняйте приказы сотрудников службы безопасности.</p>
-    
-    <button class="btn" onclick="upgradeAccess()">Запросить повышение допуска</button>
+<!-- БЛОК КЛАССА D -->
+<div id="block-d" class="terminal status-d hidden">
+    <h1>[ВНИМАНИЕ: СЕКТОР СТРОГОГО КОНТРОЛЯ]</h1>
+    <p>Вы идентифицированы как персонаж класса D (Расходный персонал).</p>
+    <hr>
+    <p>Ваш статус: Ожидание тестирования объектов. Любые попытки покинуть сектор без конвоя караются ликвидацией.</p>
+    <p><i>Система: Обнаружена ошибка индентификации? Введите код амнистии для перевода в хоз-блок.</i></p>
+    <button class="btn btn-d" onclick="verifyCode('D_TO_ZERO', 'Level_0')">Ввести код амнистии</button>
+</div>
+
+<!-- БЛОК УРОВНЯ 0 -->
+<div id="block-0" class="terminal status-0 hidden">
+    <h1>[ИНТРАНЕТ ФОНДА: СЛУЖБА ОБЕСПЕЧЕНИЯ]</h1>
+    <p>Добро пожаловать, сотрудник технического отдела (Допуск: УРОВЕНЬ 0).</p>
+    <hr>
+    <h3>Текущие задачи на сегодня (Зона 19):</h3>
+    <ul>
+        <li>Уборка камер содержания Класса "Безопасный" (Сектор 4) — ВЫПОЛНЕНО.</li>
+        <li>Закупка чистящих средств против аномальной плесени — В ОЖИДАНИИ.</li>
+        <li>Замена перегоревших ламп в коридоре крыла сотрудников МОГ.</li>
+    </ul>
+    <p style="color: #aaaaaa;"><b>Записка от коллеги:</b> "Михалыч, я оставил код верификации для лаборантов Уровня 1 на накладной. Лови ключ: <span style="color:#45f3ff; text-decoration: underline;">EUKLID_SHIELD</span>. Не потеряй!"</p>
+    <hr>
+    <button class="btn btn-0" onclick="verifyCode('EUKLID_SHIELD', 'Level_1')">Запросить допуск в Лаборатории (Уровень 1)</button>
+    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить допуск</button>
+</div>
+
+<!-- БЛОК УРОВНЯ 1 -->
+<div id="block-1" class="terminal status-1 hidden">
+    <h1>[АРХИВ ФОНДА SCP: СЕКТОР ИССЛЕДОВАНИЙ]</h1>
+    <p>Авторизация успешна. Допуск: УРОВЕНЬ 1 (Младший исследователь).</p>
+    <hr>
+    <h3>ДОСТУПНЫЕ ДОКУМЕНТЫ:</h3>
+    <p><b>Объект №:</b> SCP-173</p>
+    <p><b>Класс объекта:</b> Евклид</p>
+    <p><b>Особые условия содержания:</b> Объект должен содержаться в запертом контейнере. При потере визуального контакта немедленно атакует в область шеи...</p>
+    <hr>
+    <p style="color: #66ff66;">*Доступ к объектам класса Кетер заблокирован. Требуется Уровень 2.*</p>
+    <button class="btn btn-1" onclick="resetProgress()">Выйти из системы</button>
 </div>
 
 <script>
-    // Проверяем, заходил ли пользователь раньше и какой у него уровень
-    if(localStorage.getItem("scp_level") === "Level_1") {
-        document.getElementById("access-level").innerText = "ТЕКУЩИЙ СТАТУС: УРОВЕНЬ 1 (Младший сотрудник)";
-        document.getElementById("content-text").innerText = "ДОСТУП РАЗРЕШЕН: Объект SCP-173 — Класс: Евклид. Статуэтка из бетона и арматуры. Начинает движение, когда пропадает из поля зрения...";
-    }
+    // Логика переключения экранов в зависимости от сохраненного уровня
+    function checkAccess() {
+        // Прячем все блоки
+        document.getElementById('block-d').classList.add('hidden');
+        document.getElementById('block-0').classList.add('hidden');
+        document.getElementById('block-1').classList.add('hidden');
 
-    function upgradeAccess() {
-        let code = prompt("Введите секретный код верификации для Уровня 1:");
-        if (code === "KETER_2026") {
-            localStorage.setItem("scp_level", "Level_1");
-            alert("Личность подтверждена. Допуск повышен до Уровня 1.");
-            location.reload();
-        } else {
-            alert("ОТКАЗ В ДОСТУПЕ. Неверный код. Вы остаетесь Классом D.");
+        let currentLevel = localStorage.getItem("scp_secure_level");
+        
+        // Если зашел впервые — он Класс D
+        if (!currentLevel) {
+            currentLevel = "Class_D";
+            localStorage.setItem("scp_secure_level", "Class_D");
+        }
+
+        if (currentLevel === "Class_D") {
+            document.getElementById('block-d').classList.remove('hidden');
+            document.body.style.backgroundColor = "#1a0505"; // Темно-красный фон
+        } else if (currentLevel === "Level_0") {
+            document.getElementById('block-0').classList.remove('hidden');
+            document.body.style.backgroundColor = "#05131a"; // Темно-синий фон
+        } else if (currentLevel === "Level_1") {
+            document.getElementById('block-1').classList.remove('hidden');
+            document.body.style.backgroundColor = "#051a0b"; // Темно-зеленый фон
         }
     }
+
+    function verifyCode(correctCode, targetLevel) {
+        let userCode = prompt("Введите ключ авторизации:");
+        if (userCode === correctCode) {
+            localStorage.setItem("scp_secure_level", targetLevel);
+            alert("Доступ обновлен. Перенаправление...");
+            checkAccess();
+        } else {
+            alert("ОШИБКА: Неверный ключ. Доступ отклонен.");
+        }
+    }
+
+    function resetProgress() {
+        localStorage.setItem("scp_secure_level", "Class_D");
+        checkAccess();
+    }
+
+    // Запуск проверки при загрузке страницы
+    checkAccess();
 </script>
 
 </body>
