@@ -2,133 +2,89 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>TERMINAL://SITE-19_MAINFRAME</title>
+    <title>SCP TERMINAL</title>
     <style>
-        body { background-color: #050505; font-family: 'Courier New', monospace; padding: 30px; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .terminal { border: 2px solid #66fcf1; padding: 30px; border-radius: 4px; max-width: 800px; margin: 0 auto; box-shadow: 0 0 20px rgba(102,252,241,0.1); background-color: rgba(11, 12, 16, 0.95); }
-        .btn { background: transparent; border: 1px solid #66fcf1; padding: 12px 24px; font-family: monospace; cursor: pointer; margin-top: 20px; transition: 0.3s; text-transform: uppercase; font-weight: bold; }
-        .redacted { background-color: #555; color: #555; padding: 0 4px; }
-        .redacted:hover { color: #fff; background-color: transparent; } /* Пасхалка: при наведении текст видно */
-        
-        /* Стили для Класса D (Тревога / Нарушение) */
-        .status-d { color: #ff3333; border-color: #ff3333; box-shadow: 0 0 25px rgba(255,51,51,0.15); }
-        .btn-d { color: #ff3333; border-color: #ff3333; }
-        .btn-d:hover { background: #ff3333; color: #050505; box-shadow: 0 0 15px #ff3333; }
-
-        /* Стили для Уровня 0 (Корпоративный / Хоз-блок) */
-        .status-0 { color: #33ccff; border-color: #33ccff; box-shadow: 0 0 25px rgba(51,204,255,0.15); }
-        .btn-0 { color: #33ccff; border-color: #33ccff; }
-        .btn-0:hover { background: #33ccff; color: #050505; box-shadow: 0 0 15px #33ccff; }
-        
-        /* Стили для Уровня 1 (Исследовательский сектор) */
-        .status-1 { color: #33ff33; border-color: #33ff33; box-shadow: 0 0 25px rgba(51,255,51,0.15); }
-        .btn-1 { color: #33ff33; border-color: #33ff33; }
-        .btn-1:hover { background: #33ff33; color: #050505; box-shadow: 0 0 15px #33ff33; }
-
+        body { background-color: #0d0d0d; color: #00ff66; font-family: monospace; padding: 30px; }
+        .terminal { border: 2px solid #00ff66; padding: 25px; border-radius: 5px; max-width: 600px; margin: 0 auto; }
+        .btn { background: transparent; color: #00ff66; border: 1px solid #00ff66; padding: 10px 20px; font-family: monospace; cursor: pointer; margin-top: 15px; }
+        .btn:hover { background: #00ff66; color: #0d0d0d; }
         .hidden { display: none; }
-        hr { border: 0; border-top: 1px solid currentColor; margin: 20px 0; opacity: 0.5; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
-<!-- ================= БЛОК КЛАССА D ================= -->
-<div id="block-d" class="terminal status-d hidden">
-    <h2>[ВНИМАНИЕ: СЕКТОР СОДЕРЖАНИЯ КЛАССА D]</h2>
-    <p><b>ОБЪЕКТ ИДЕНТИФИКАЦИИ:</b> Субъект D-9341</p>
-    <p><b>ТЕКУЩАЯ ДИСЛОКАЦИЯ:</b> Зона 19, Блок общего содержания Расходного Персонала.</p>
-    <hr>
-    <p>Вы заперты в камере. Из динамиков доносится хриплый голос доктора Клефа: <i>"Внимание всем сотрудникам класса D. Пройдите в шлюз камеры содержания SCP-173 для проведения ежедневного тестирования. Любое неповиновение приведёт к немедленной терминации сотрудниками СБ".</i></p>
-    <p>На полу возле вентиляции вы замечаете брошенный кем-то старый КПК охранника. Экран мерцает. Система запрашивает обходной служебный код для перевода вашей карточки в базу хоз-блока, подальше от камер содержания.</p>
+<!-- ЭКРАН 1: КЛАСС D -->
+<div id="block-d" class="terminal hidden">
+    <h1>ТЕРМИНАЛ: КЛАСС D</h1>
+    <p>Статус: Расходный персонал. Доступ к архивам заблокирован.</p>
     <p><i>[Подсказка: Введите код "новичок"]</i></p>
-    <button class="btn btn-d" onclick="verifyCode('новичок', 'Level_0')">Взломать систему верификации</button>
+    <button class="btn" onclick="verifyCode('новичок', 'Level_0')">Ввести код доступа</button>
 </div>
 
-<!-- ================= БЛОК УРОВНЯ 0 ================= -->
-<div id="block-0" class="terminal status-0 hidden">
-    <h2>[ВНУТРЕННЯЯ СЕТЬ ФОНДА SCP // ДОПУСК: УРОВЕНЬ 0]</h2>
-    <p><b>ПОЛЬЗОВАТЕЛЬ:</b> Старший техник хоз-части Зоны 19</p>
-    <p><b>СТАТУС:</b> Некомбатант (Запрещен доступ к объектам класса Евклид/Кетер)</p>
-    <hr>
-    <h3>ВНУТРЕННИЕ ЛОГИ И ИНЦИДЕНТЫ:</h3>
-    <ul>
-        <li><b>[Инцидент 096-А]:</b> В Секторе 5 зафиксирован прорыв. МОГ Эпсилон-11 ("Девятихвостая лиса") задействовала протоколы визуальной блокировки SCRANTON. Не смотрите на <span class="redacted" title="Наведи мышь">лицо объекта</span>. Ожидается санитарная зачистка.</li>
-        <li><b>[Приказ по базе]:</b> Технической службе завершить ремонт гермозатвора в крыле содержания <span class="redacted">Кетер</span> до конца смены. За неподчинение — перевод в Класс D.</li>
-    </ul>
-    
-    <div style="background: rgba(51,204,255,0.05); padding: 15px; border-left: 3px solid #33ccff; margin-top: 15px;">
-        <p><b>ПЕРЕХВАТ ПЕРЕПИСКИ (ОТДЕЛ СНАБЖЕНИЯ):</b><br>
-        <i>"Слушай, лаборанты из медицинского крыла совсем зажрались, требуют выдать им новые защитные костюмы. Я скинул им временный пропуск в архив исследований. Текст пропуска — простое русское слово <b style="color: #fff; text-shadow: 0 0 5px #33ccff;">трудяга</b>. Используй его, если нужно будет забрать документы по аномальной плесени в архиве".</i></p>
-    </div>
-    <hr>
-    <button class="btn btn-0" onclick="verifyCode('трудяга', 'Level_1')">Использовать перехваченный допуск в Архив (Уровень 1)</button>
-    <button class="btn btn-0" style="margin-left: 10px;" onclick="resetProgress()">Сбросить прогресс аккаунта</button>
+<!-- ЭКРАН 2: УРОВЕНЬ 0 -->
+<div id="block-0" class="terminal hidden">
+    <h1>ТЕРМИНАЛ: УРОВЕНЬ 0</h1>
+    <p>Статус: Технический персонал. Доступ к лабораториям ограничен.</p>
+    <p><i>[Подсказка: Введите код "трудяга"]</i></p>
+    <button class="btn" onclick="verifyCode('трудяга', 'Level_1')">Повысить допуск</button>
+    <button class="btn" style="margin-left: 10px;" onclick="resetProgress()">Выйти</button>
 </div>
 
-<!-- ================= БЛОК УРОВНЯ 1 ================= -->
-<div id="block-1" class="terminal status-1 hidden">
-    <h2>[АРХИВНЫЙ МЕЙНФРЕЙМ // ДОПУСК: УРОВЕНЬ 1]</h2>
-    <p><b>АВТОРИЗАЦИЯ:</b> Младший научный сотрудник Сектора 4</p>
-    <p style="color: #ff3333; font-weight: bold;">[ВНИМАНИЕ: Распространение данных карается введением амнезиака класса А]</p>
-    <hr>
-    
-    <h3>БАЗА ДАННЫХ: ОБЪЕКТ № SCP-173</h3>
-    <p><b>Класс объекта:</b> Евклид</p>
-    <p><b>Описание:</b> Скульптура из бетона и арматуры со следами аэрозольной краски марки Krylon. Объект крайне враждебен. Не может двигаться, пока находится в прямой видимости.</p>
-    <p><b>Протокол содержания:</b> При входе персонала в камеру, сотрудники обязаны вслух предупреждать друг друга перед тем, как моргнуть. <span class="redacted">Доктор Скрэнтон</span> погиб в ходе нарушения условий от <span class="redacted">1993 года</span>.</p>
-    
-    <hr>
-    <div style="background: rgba(51,255,51,0.05); padding: 15px; border: 1px dashed #33ff33;">
-        <p><b>СИСТЕМНОЕ УВЕДОМЛЕНИЕ:</b><br>
-        Обнаружена критическая аномалия в соседнем блоке! Объект <b>SCP-682</b> совершил очередную попытку побега. Допуск Уровня 1 заблокирован автоматикой Совета O5. Чтобы получить файлы по Кэтерам, вам потребуется код сотрудника службы безопасности (Уровень 2)...</p>
-    </div>
-    
-    <button class="btn btn-1" onclick="resetProgress()">Выйти из терминала</button>
+<!-- ЭКРАН 3: УРОВЕНЬ 1 -->
+<div id="block-1" class="terminal hidden">
+    <h1>ТЕРМИНАЛ: УРОВЕНЬ 1</h1>
+    <p>Статус: Младший исследователь. Допуск разрешен.</p>
+    <hr style="border-color: #00ff66;">
+    <h3>СЕКРЕТНЫЙ ОБЪЕКТ: SCP-173</h3>
+    <p>Класс: Евклид. Скульптура из бетона. Нападает, если разорвать зрительный контакт. При работе с объектом запрещено моргать без предупреждения.</p>
+    <hr style="border-color: #00ff66;">
+    <button class="btn" onclick="resetProgress()">Заблокировать терминал</button>
 </div>
 
 <script>
     function checkAccess() {
+        // Скрываем все экраны
         document.getElementById('block-d').classList.add('hidden');
         document.getElementById('block-0').classList.add('hidden');
         document.getElementById('block-1').classList.add('hidden');
 
-        let currentLevel = localStorage.getItem("scp_secure_level");
+        // Читаем текущий уровень из памяти браузера
+        let currentLevel = localStorage.getItem("scp_simple_level");
         
+        // Если пользователь зашел впервые, ставим ему Класс D
         if (!currentLevel) {
             currentLevel = "Class_D";
-            localStorage.setItem("scp_secure_level", "Class_D");
+            localStorage.setItem("scp_simple_level", "Class_D");
         }
 
+        // Показываем нужный экран
         if (currentLevel === "Class_D") {
             document.getElementById('block-d').classList.remove('hidden');
-            document.body.style.backgroundColor = "#120202";
         } else if (currentLevel === "Level_0") {
             document.getElementById('block-0').classList.remove('hidden');
-            document.body.style.backgroundColor = "#020b12";
         } else if (currentLevel === "Level_1") {
             document.getElementById('block-1').classList.remove('hidden');
-            document.body.style.backgroundColor = "#021205";
         }
     }
 
     function verifyCode(correctCode, targetLevel) {
-        let userCode = prompt("Введите ключ авторизации терминала:");
-        
-        if (userCode && userCode.toLowerCase() === correctCode.toLowerCase()) {
-            localStorage.setItem("scp_secure_level", targetLevel);
-            alert("ДОСТУП ПРЕДОСТАВЛЕН. Синхронизация данных...");
+        let userCode = prompt("Введите код авторизации:");
+        // Проверяем код, игнорируя случайные пробелы и большие буквы
+        if (userCode && userCode.toLowerCase().trim() === correctCode) {
+            localStorage.setItem("scp_simple_level", targetLevel);
+            alert("Доступ предоставлен!");
             checkAccess();
         } else {
-            alert("ОТКАЗ В ДОСТУПЕ. Неверная сигнатура ключа. Попытка зафиксирована СБ Зоны.");
+            alert("Ошибка! Неверный код доступа.");
         }
     }
 
     function resetProgress() {
-        localStorage.setItem("scp_secure_level", "Class_D");
+        localStorage.setItem("scp_simple_level", "Class_D");
         checkAccess();
     }
 
+    // Запускаем проверку при открытии сайта
     checkAccess();
 </script>
 
